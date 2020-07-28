@@ -1,8 +1,6 @@
 //<select> element was referenced https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
-//class based components are called Stateful Component @link: https://www.golangprograms.com/react-js-calculator.html
 
 import React from 'react';
-import * as math from 'mathjs';
 
 class App extends React.Component
 {
@@ -13,6 +11,7 @@ class App extends React.Component
     this.state = {
       input1: null,
       input2: null,
+      finalResult: null,
     }
   }
 
@@ -22,16 +21,24 @@ class App extends React.Component
   }
 
   //Changing the state object using this.setState() for input1
-  changeInputs = (event) => {
-    let inputs = event.target.name
-    let values = event.target.value
-    this.setState({[inputs]: values});
+  //@link: https://www.w3schools.com/react/react_forms.asp
+  changeInputOne = (event) => {
+    this.setState({input1: event.target.value});
+    this.handleAddChange();
   }
 
-  //Changing the state object using this.setState() for input2
- // changeInputTwo = (event) => {
-  //  this.setState({input2: event.target.value});
- // }
+  changeInputTwo = (event) => {
+    this.setState({input2: event.target.value});
+    this.handleAddChange();
+  }
+
+  //add operator action trying to parse into integer
+  handleAddChange = (event) => {
+    let x = parseInt(this.state.input1)
+    let y = parseInt(this.state.input2)
+    let z = this.state.input1 + this.state.input2
+    this.setState({finalResult: z});
+  }
 
   render()
   {
@@ -47,14 +54,14 @@ class App extends React.Component
               type="number" 
               name="input1"
               required
-              onChange={this.changeInputs}
+              onChange={this.changeInputOne}
               ></input>
             </li>
             <li>
               <label htmlFor="operation">Operation:</label>
               <select name="operators" id="operators">
                   <option>Please choose an operator</option> 
-                  <option value="plus">+</option>
+                  <option value="add" onChange={this.finalResult}>+</option>
                   <option value="minus">-</option>
                   <option value="multiplication">x</option>
                   <option value="division">÷</option>
@@ -66,7 +73,7 @@ class App extends React.Component
               type="number" 
               name="input2"
               required
-              onChange={this.changeInputs}
+              onChange={this.changeInputTwo}
               ></input>
             </li>
             <li>
@@ -75,7 +82,7 @@ class App extends React.Component
               </label>
             </li>
             <li>
-              <label htmlFor ="result">Result:</label>
+              <label htmlFor ="result">Result: {this.state.finalResult}</label>
             </li>
             </ul>
           </form>
