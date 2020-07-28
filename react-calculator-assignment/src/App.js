@@ -22,23 +22,32 @@ class App extends React.Component
 
   //Changing the state object using this.setState() for input1
   //@link: https://www.w3schools.com/react/react_forms.asp
+
   changeInputOne = (event) => {
     this.setState({input1: event.target.value});
-    this.handleAddChange();
   }
 
   changeInputTwo = (event) => {
     this.setState({input2: event.target.value});
-    this.handleAddChange();
   }
 
-  //add operator action trying to parse into integer
-  handleAddChange = (event) => {
-    let x = parseInt(this.state.input1)
-    let y = parseInt(this.state.input2)
-    let z = this.state.input1 + this.state.input2
-    this.setState({finalResult: z});
-  }
+ 
+  //@link: https://www.reddit.com/r/learnjavascript/comments/3gi93u/basic_calculator_with_dropdown/
+   //trying to do this operations by changing them into React friendly code
+  /**
+   * if(selectValue = "add") {
+	  result = parseInt(firstNum + secondNum);
+    } else if(selectValue = "subtract") {
+	  result = parseInt(firstNum - secondNum);
+    } else if(selectValue = "multiply") {
+	  result = parseInt(firstNum * secondNum);
+    } else {
+	  result = parseInt(firstNum/secondNum);
+    }
+   */
+
+  
+
 
   render()
   {
@@ -59,9 +68,9 @@ class App extends React.Component
             </li>
             <li>
               <label htmlFor="operation">Operation:</label>
-              <select name="operators" id="operators">
+              <select name="operators" id="operators" onChange = "setValue()">
                   <option>Please choose an operator</option> 
-                  <option value="add" onChange={this.finalResult}>+</option>
+                  <option value="add">+</option>
                   <option value="minus">-</option>
                   <option value="multiplication">x</option>
                   <option value="division">÷</option>
