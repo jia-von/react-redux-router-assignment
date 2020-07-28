@@ -11,25 +11,27 @@ class App extends React.Component
     super(props);
 
     this.state = {
-      input1: "",
-      input2: "",
+      input1: null,
+      input2: null,
     }
   }
 
-  //submit handler
+  //submit handler to prevent automatic script running
   submitHandler = (event) => {
     event.preventDefault();
   }
 
   //Changing the state object using this.setState() for input1
-  changeInputOne = (event) => {
-    this.setState({input1: event.target.value});
+  changeInputs = (event) => {
+    let inputs = event.target.name
+    let values = event.target.value
+    this.setState({[inputs]: values});
   }
 
   //Changing the state object using this.setState() for input2
-  changeInputTwo = (event) => {
-    this.setState({input2: event.target.value});
-  }
+ // changeInputTwo = (event) => {
+  //  this.setState({input2: event.target.value});
+ // }
 
   render()
   {
@@ -43,8 +45,9 @@ class App extends React.Component
               <label htmlFor="labelInput1">Input 1: </label>
               <input 
               type="number" 
+              name="input1"
               required
-              onChange={this.changeInputOne}
+              onChange={this.changeInputs}
               ></input>
             </li>
             <li>
@@ -61,8 +64,9 @@ class App extends React.Component
               <label htmlFor="labelInput2">Input 2: </label>
               <input 
               type="number" 
+              name="input2"
               required
-              onChange={this.changeInputTwo}
+              onChange={this.changeInputs}
               ></input>
             </li>
             <li>
