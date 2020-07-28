@@ -15,11 +15,28 @@ class App extends React.Component
       selectedOperators: null,
     }
   }
-
   //submit handler to prevent automatic script running
   submitHandler = (event) => {
     event.preventDefault();
-    this.setState({finalResult: parseInt(this.state.input1)+parseInt(this.state.input2)})
+    switch(this.state.selectedOperators) {
+      case ("add"):
+      this.setState({finalResult: parseInt(this.state.input1) + parseInt(this.state.input2)});
+      break;
+
+      case ("minus"): 
+      this.setState({finalResult: parseInt(this.state.input1) - parseInt(this.state.input2)});
+      break;
+
+      case ("multiplication"):
+      this.setState({finalResult: parseInt(this.state.input1) * parseInt(this.state.input2)});
+      break;
+
+      case ("division"):
+      this.setState({finalResult: parseInt(this.state.input1) / parseInt(this.state.input2)});
+
+      default: 
+      break;
+    }
   }
 
   //Changing the state object using this.setState() for input1
@@ -36,23 +53,6 @@ class App extends React.Component
   setOperators =(event) => {
     this.setState({selectedOperators: event.target.value})
   }
-
-  //define setValue() function
- 
-  //@link: https://www.reddit.com/r/learnjavascript/comments/3gi93u/basic_calculator_with_dropdown/
-   //trying to do this operations by changing them into React friendly code
-  /**
-   * if(selectValue = "add") {
-	  result = parseInt(firstNum + secondNum);
-    } else if(selectValue = "subtract") {
-	  result = parseInt(firstNum - secondNum);
-    } else if(selectValue = "multiply") {
-	  result = parseInt(firstNum * secondNum);
-    } else {
-	  result = parseInt(firstNum/secondNum);
-    }
-   */
-
 
   render()
   {
