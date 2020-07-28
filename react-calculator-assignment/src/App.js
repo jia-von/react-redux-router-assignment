@@ -12,6 +12,7 @@ class App extends React.Component
       input1: null,
       input2: null,
       finalResult: null,
+      selectedOperators: null,
     }
   }
 
@@ -31,6 +32,11 @@ class App extends React.Component
     this.setState({input2: event.target.value});
   }
 
+  setOperators =(event) => {
+    this.setState({selectedOperators: event.target.value})
+  }
+
+  //define setValue() function
  
   //@link: https://www.reddit.com/r/learnjavascript/comments/3gi93u/basic_calculator_with_dropdown/
    //trying to do this operations by changing them into React friendly code
@@ -68,7 +74,7 @@ class App extends React.Component
             </li>
             <li>
               <label htmlFor="operation">Operation:</label>
-              <select name="operators" id="operators" onChange = "setValue()">
+              <select name="operators" id="operators" onChange = {this.setOperators}>
                   <option>Please choose an operator</option> 
                   <option value="add">+</option>
                   <option value="minus">-</option>
