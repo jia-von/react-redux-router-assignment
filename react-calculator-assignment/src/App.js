@@ -19,6 +19,7 @@ class App extends React.Component
   //submit handler to prevent automatic script running
   submitHandler = (event) => {
     event.preventDefault();
+    this.setState({finalResult: parseInt(this.state.input1)+parseInt(this.state.input2)})
   }
 
   //Changing the state object using this.setState() for input1
@@ -51,8 +52,6 @@ class App extends React.Component
 	  result = parseInt(firstNum/secondNum);
     }
    */
-
-  
 
 
   render()
