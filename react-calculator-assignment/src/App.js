@@ -1,26 +1,53 @@
 //<select> element was referenced https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
-import React from 'react';
+//class based components are called Stateful Component @link: https://www.golangprograms.com/react-js-calculator.html
 
-//import './App.css';
+import React from 'react';
+import Calculator from './Calculator'
 
 class App extends React.Component
 {
+  constructor(props)
+  {
+    super(props);
+
+    this.state = {
+      input1: "",
+      input2: "",
+      operators: ""
+    }
+  }
+
+  //clone  this.state to store input1
+  changeInput1(input1){
+    this.setState({input1});
+  }
+  
+  //clone this.state to store input2
+  changeInput2(input2){
+    this.setState({input2});
+  }
+  
   render()
   {
     return (
       <div className="App">
         <header className="App-header">
           <h1>Welcome to Jia's Calculator!</h1>
-          <form id="calculator" name="calculator">
+          <form onSubmit={e=>e.preventDefault()}>
             <ul>
             <li>
-              <label for="labelInput1">Input 1: </label>
-              <input type="number" id="input1" name="input1"></input>
+              <label htmlFor="labelInput1">Input 1: </label>
+              <input 
+              type="number" 
+              id="input1" 
+              name="input1"
+              required
+              ></input>
             </li>
             <li>
-              <label for="operation">Operation:</label>
+              <label htmlFor="operation">Operation:</label>
               <select name="operators" id="operators">
-                  <option>Please choose an Operator</option> 
+                  <option>Please choose an operator</option> 
                   <option value="plus">+</option>
                   <option value="minus">-</option>
                   <option value="multiplication">x</option>
@@ -28,13 +55,21 @@ class App extends React.Component
               </select>
             </li>
             <li>
-              <label for="labelInput2">Input 2: </label>
-              <input type="number" id="input2" name="input2"></input>
+              <label htmlFor="labelInput2">Input 2: </label>
+              <input 
+              type="number" 
+              id="input2" 
+              name="input2" 
+              required
+              ></input>
             </li>
             <li>
-              <label for="calculate">
+              <label htmlFor="calculate">
               <input type="submit" value="Calculate!"></input>
               </label>
+            </li>
+            <li>
+              <label htmlFor ="result">Result:</label>
             </li>
             </ul>
           </form>
@@ -43,5 +78,4 @@ class App extends React.Component
     );
   }
 }
-
 export default App;
