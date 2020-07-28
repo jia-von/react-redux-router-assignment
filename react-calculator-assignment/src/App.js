@@ -2,7 +2,7 @@
 //class based components are called Stateful Component @link: https://www.golangprograms.com/react-js-calculator.html
 
 import React from 'react';
-import Calculator from './Calculator'
+import * as math from 'mathjs';
 
 class App extends React.Component
 {
@@ -13,35 +13,38 @@ class App extends React.Component
     this.state = {
       input1: "",
       input2: "",
-      operators: ""
     }
   }
 
-  //clone  this.state to store input1
-  changeInput1(input1){
-    this.setState({input1});
+  //submit handler
+  submitHandler = (event) => {
+    event.preventDefault();
   }
-  
-  //clone this.state to store input2
-  changeInput2(input2){
-    this.setState({input2});
+
+  //Changing the state object using this.setState() for input1
+  changeInputOne = (event) => {
+    this.setState({input1: event.target.value});
   }
-  
+
+  //Changing the state object using this.setState() for input2
+  changeInputTwo = (event) => {
+    this.setState({input2: event.target.value});
+  }
+
   render()
   {
     return (
       <div className="App">
         <header className="App-header">
           <h1>Welcome to Jia's Calculator!</h1>
-          <form onSubmit={e=>e.preventDefault()}>
+          <form onSubmit={this.submitHandler}>
             <ul>
             <li>
               <label htmlFor="labelInput1">Input 1: </label>
               <input 
               type="number" 
-              id="input1" 
-              name="input1"
               required
+              onChange={this.changeInputOne}
               ></input>
             </li>
             <li>
@@ -58,9 +61,8 @@ class App extends React.Component
               <label htmlFor="labelInput2">Input 2: </label>
               <input 
               type="number" 
-              id="input2" 
-              name="input2" 
               required
+              onChange={this.changeInputTwo}
               ></input>
             </li>
             <li>
