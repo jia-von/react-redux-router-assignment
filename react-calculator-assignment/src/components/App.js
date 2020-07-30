@@ -1,6 +1,8 @@
 //<select> element was referenced https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
-
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import addNewResultLine from '../actions/addNewResultLine';
+import {connect} from 'react-redux'
 
 class App extends React.Component
 {
@@ -15,6 +17,8 @@ class App extends React.Component
       selectedOperators: null,
     }
   }
+
+  
   //submit handler to prevent automatic script running
   submitHandler = (event) => {
     event.preventDefault();
@@ -37,7 +41,9 @@ class App extends React.Component
       default: 
       break;
     }
+    this.props.dispatch(addNewResultLine(this.state.finalResult));
   }
+
 
   //Changing the state object using this.setState() for input1
   //@link: https://www.w3schools.com/react/react_forms.asp
@@ -105,4 +111,7 @@ class App extends React.Component
     );
   }
 }
-export default App;
+export default connect( // "Connect" is how we bind the component and our redux setup.
+  null, // Customized state (or null.)
+  { addNewResultLine } // Actions.
+)(App); // Name of the component (in this case: App.)
