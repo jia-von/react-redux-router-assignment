@@ -20,13 +20,18 @@ import resultReducer from './reducers/resultreducer';
 
  const store = createStore(resultReducer);
 
+ // Attempt to output, see if we're getting an error.
+//store.subscribe( () => console.log( store.getState() ) ); // Outputs each time a change occurs (subcribe watches for changes.)
+
  /**
  * Redux Dispatch
  * Dispatch is used for us to send commands for mutation/manipulation/reads from
  * our store/state data.
  */
 
- store.dispatch(addNewResultLine(""));
+ store.dispatch(addNewResultLine());
+
+
 
 ReactDOM.render(
   <Provider store={store}>

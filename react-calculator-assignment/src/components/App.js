@@ -1,7 +1,8 @@
 //<select> element was referenced https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
 import React from 'react';
 import addNewResultLine from '../actions/addNewResultLine';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import NewLine from './NewLine';
 
 class App extends React.Component
 {
@@ -12,7 +13,7 @@ class App extends React.Component
     this.state = {
       input1: null,
       input2: null,
-      finalResult: "",
+      finalResult: null,
       selectedOperators: null,
     }
   }
@@ -23,24 +24,25 @@ class App extends React.Component
     event.preventDefault();
     switch(this.state.selectedOperators) {
       case ("add"):
-      this.props.dispatch(addNewResultLine({finalResult: parseInt(this.state.input1) + parseInt(this.state.input2)}));
+      this.props.dispatch(addNewResultLine(parseInt(this.state.input1) + parseInt(this.state.input2)));
       break;
 
       case ("minus"): 
-      this.props.dispatch(addNewResultLine({finalResult: parseInt(this.state.input1) - parseInt(this.state.input2)}));
+      this.props.dispatch(addNewResultLine(parseInt(this.state.input1) - parseInt(this.state.input2)));
       break;
 
-      case ("multiplication"):
-      this.props.dispatch(addNewResultLine({finalResult: parseInt(this.state.input1) * parseInt(this.state.input2)}));
+      case ("multiplication"):      
+      this.props.dispatch(addNewResultLine(parseInt(this.state.input1) * parseInt(this.state.input2)));
       break;
 
       case ("division"):
-      this.props.dispatch(addNewResultLine({finalResult: parseInt(this.state.input1) / parseInt(this.state.input2)}));
-
+      this.props.dispatch(addNewResultLine(parseInt(this.state.input1) / parseInt(this.state.input2)));
+  
       default: 
       break;
     }
   }
+  
 
 
   //Changing the state object using this.setState() for input1
@@ -99,11 +101,9 @@ class App extends React.Component
               <input type="submit" value="Calculate!"></input>
               </label>
             </li>
-            <li>
-              <label htmlFor ="result">Result:</label>
-            </li>
             <ul>
-            {this.props.addNewResultLine.uniqueId}
+            <label htmlFor ="result">Result: </label>
+            {this.props.addNewResultLine.map(lineNew => <NewLine key={lineNew.uniqueId} uniqueId={lineNew} text={lineNew.value}/>)}
             </ul>
             </ul>
           </form>
@@ -112,8 +112,3 @@ class App extends React.Component
   }
 }
 export default connect (state=> {return{addNewResultLine: state}},)(App);
-
-
-//<li key={this.props.addNewResultLine.map(addNew => <AddNewLine uniqueId={addNew.uniqueId} text={addNew.value}/>)}/>
-
-//<li key={this.props.addNewResultLine.value}/>
