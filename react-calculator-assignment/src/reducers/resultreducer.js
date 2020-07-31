@@ -7,9 +7,9 @@ import { v4 as uuidv4 } from 'uuid';
  * necessary target data to perform its duty.
  */
 
-const resultReducer = (state = [], action) => {
+const resultReducer = (state = [], action) => { //default state is empty array here.
     switch (action.type)
-    {
+    {//what happens if we are adding a new new line
       case 'ADD_NEW_RESULT_LINE':
         const newLine = {
           uniqueId: uuidv4(), // Ensure a unique ID.

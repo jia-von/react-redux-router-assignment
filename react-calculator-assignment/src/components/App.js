@@ -1,6 +1,5 @@
 //<select> element was referenced https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import addNewResultLine from '../actions/addNewResultLine';
 import {connect} from 'react-redux'
 
@@ -13,7 +12,7 @@ class App extends React.Component
     this.state = {
       input1: null,
       input2: null,
-      finalResult: null,
+      finalResult: "",
       selectedOperators: null,
     }
   }
@@ -24,24 +23,23 @@ class App extends React.Component
     event.preventDefault();
     switch(this.state.selectedOperators) {
       case ("add"):
-      this.setState({finalResult: parseInt(this.state.input1) + parseInt(this.state.input2)});
+      this.props.dispatch(addNewResultLine({finalResult: parseInt(this.state.input1) + parseInt(this.state.input2)}));
       break;
 
       case ("minus"): 
-      this.setState({finalResult: parseInt(this.state.input1) - parseInt(this.state.input2)});
+      this.props.dispatch(addNewResultLine({finalResult: parseInt(this.state.input1) - parseInt(this.state.input2)}));
       break;
 
       case ("multiplication"):
-      this.setState({finalResult: parseInt(this.state.input1) * parseInt(this.state.input2)});
+      this.props.dispatch(addNewResultLine({finalResult: parseInt(this.state.input1) * parseInt(this.state.input2)}));
       break;
 
       case ("division"):
-      this.setState({finalResult: parseInt(this.state.input1) / parseInt(this.state.input2)});
+      this.props.dispatch(addNewResultLine({finalResult: parseInt(this.state.input1) / parseInt(this.state.input2)}));
 
       default: 
       break;
     }
-    this.props.dispatch(addNewResultLine(this.state.finalResult));
   }
 
 
@@ -61,10 +59,10 @@ class App extends React.Component
   }
 
   render()
-  {
+  { 
+
     return (
-      <div className="App">
-        <header className="App-header">
+      <>
           <h1>Welcome to Jia's Calculator!</h1>
           <form onSubmit={this.submitHandler}>
             <ul>
@@ -102,16 +100,20 @@ class App extends React.Component
               </label>
             </li>
             <li>
-              <label htmlFor ="result">Result: {this.state.finalResult}</label>
+              <label htmlFor ="result">Result:</label>
             </li>
+            <ul>
+            {this.props.addNewResultLine.uniqueId}
+            </ul>
             </ul>
           </form>
-        </header>
-      </div>
+    </>
     );
   }
 }
-export default connect( // "Connect" is how we bind the component and our redux setup.
-  null, // Customized state (or null.)
-  { addNewResultLine } // Actions.
-)(App); // Name of the component (in this case: App.)
+export default connect (state=> {return{addNewResultLine: state}},)(App);
+
+
+//<li key={this.props.addNewResultLine.map(addNew => <AddNewLine uniqueId={addNew.uniqueId} text={addNew.value}/>)}/>
+
+//<li key={this.props.addNewResultLine.value}/>

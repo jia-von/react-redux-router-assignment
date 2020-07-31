@@ -26,10 +26,7 @@ import resultReducer from './reducers/resultreducer';
  * our store/state data.
  */
 
- store.dispatch(addNewResultLine("testing1"));
- store.dispatch(addNewResultLine("testing2"));
- store.dispatch(addNewResultLine("testing3"));
-
+ store.dispatch(addNewResultLine(""));
 
 ReactDOM.render(
   <Provider store={store}>
